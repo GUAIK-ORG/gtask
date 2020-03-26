@@ -6,6 +6,10 @@
 
 GTask支持远程管理任务，执行任务脚本（目前仅支持lua），开发者可以创建任务实例并为实例添加处理器，在处理器中配置执行脚本就可以轻松的管理任务。
 
+## 演示
+
+![demo](https://gitee.com/GuaikOrg/gtask/raw/master/docs/test.gif)
+
 ## 编译与使用
 
 ### Linux

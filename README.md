@@ -6,10 +6,6 @@
 
 GTask支持远程管理任务，执行任务脚本（目前仅支持lua），开发者可以创建任务实例并为实例添加处理器，在处理器中配置执行脚本就可以轻松的管理任务。
 
-## 演示
-
-![demo](https://media.giphy.com/media/L2U97GhVV32T0N5PJZ/giphy.gif)
-
 ## 编译与使用
 
 ### Linux
@@ -52,40 +48,7 @@ GTask支持远程管理任务，执行任务脚本（目前仅支持lua），开
 | run  |  | （必须先use job）启动任务 | run |
 | delete  |  | （必须先use job）停止并删除任务 | delete |
 
-### LUA支持函数
-
-### 加密
-
-|  函数   | 参数 | 返回值 | 描述 |
-|  ----  | ---- | ---- | ---- |
-| md5 | string | string | 获取字符串的MD5值 |
-| base64 | string | string | 获取字符串的base64编码 |
-| base64UrlSafe | string | string | 获取字符串url安全的base64编码 |
-| base64 | string | string | 获取字符串的base64编码 |
-| hmac | [key:string, str:string] | string | 获取hmac值 |
-| sha1 | string | string | 获取字符串的SHA1值 |
-
-### 时间
-
-|  函数   | 参数 | 返回值 | 描述 |
-|  ----  | ---- | ---- | ---- |
-| now |  | number | 获取当前时间戳（毫秒） |
-
-### Json
-
-|  函数   | 参数 | 返回值 | 描述 |
-|  ----  | ---- | ---- | ---- |
-| jsonMarshal | table | string | 将table转换成json字符串 |
-| jsonUnMarshal | string | table | 将json字符串转转换成table |
-
-### Http
-
-|  函数   | 参数 | 返回值 | 描述 |
-|  ----  | ---- | ---- | ---- |
-| httpGet | [url:string header:table] | [res:string ok:bool] | 发送GET请求 |
-| httpPost | [url:string header:table body:string] | [res:string ok:bool] | 发送POST请求 |
-
-## 测试
+## 客户端测试
 
 使用默认配置文件并将服务端运行在本机（localhost）
 
@@ -138,3 +101,36 @@ function processor(key,count)
     return true　// 如果返回false，当前执行器将会退出
 end
 ```
+
+## LUA支持函数
+
+### 加密
+
+|  函数   | 参数 | 返回值 | 描述 |
+|  ----  | ---- | ---- | ---- |
+| md5 | string | string | 获取字符串的MD5值 |
+| base64 | string | string | 获取字符串的base64编码 |
+| base64UrlSafe | string | string | 获取字符串url安全的base64编码 |
+| base64 | string | string | 获取字符串的base64编码 |
+| hmac | [key:string, str:string] | string | 获取hmac值 |
+| sha1 | string | string | 获取字符串的SHA1值 |
+
+### 时间
+
+|  函数   | 参数 | 返回值 | 描述 |
+|  ----  | ---- | ---- | ---- |
+| now |  | number | 获取当前时间戳（毫秒） |
+
+### Json
+
+|  函数   | 参数 | 返回值 | 描述 |
+|  ----  | ---- | ---- | ---- |
+| jsonMarshal | table | string | 将table转换成json字符串 |
+| jsonUnMarshal | string | table | 将json字符串转转换成table |
+
+### Http
+
+|  函数   | 参数 | 返回值 | 描述 |
+|  ----  | ---- | ---- | ---- |
+| httpGet | [url:string header:table] | [res:string ok:bool] | 发送GET请求 |
+| httpPost | [url:string header:table body:string] | [res:string ok:bool] | 发送POST请求 |

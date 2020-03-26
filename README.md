@@ -8,7 +8,7 @@ GTask支持远程管理任务，执行任务脚本（目前仅支持lua），开
 
 ## 演示
 
-![demo](https://gitee.com/GuaikOrg/gtask/raw/master/docs/test.gif)
+![demo](https://media.giphy.com/media/L2U97GhVV32T0N5PJZ/giphy.gif)
 
 ## 编译与使用
 

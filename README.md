@@ -48,6 +48,10 @@ GTask支持远程管理任务，执行任务脚本（目前仅支持lua），开
 | run  |  | （必须先use job）启动任务 | run |
 | delete  |  | （必须先use job）停止并删除任务 | delete |
 
+## 客户端演示
+
+![test.gif](https://bbs.guaik.org/assets/uploads/files/1585212415510-test.gif)
+
 ## 客户端测试
 
 使用默认配置文件并将服务端运行在本机（localhost）

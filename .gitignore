@@ -1,0 +1,9 @@
+.idea/.gitignore
+.idea/gtask.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/watcherTasks.xml
+
+log/*
+release/*

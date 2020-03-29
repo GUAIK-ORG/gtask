@@ -80,17 +80,22 @@ var RunJobHandler = restful.NewHandler(
 var CreateProcessorHandler = restful.NewHandler(
 	func(w http.ResponseWriter, r *http.Request, params map[string]interface{}, resp *restful.Response) {
 		job := task.Ins().GetJob(params["key"].(string))
-		if job != nil {
-			job.AddProcessor(
-				params["code"].(string),
-				int64(params["trigger"].(float64)),
-				params["bReset"].(bool),
-				params["bLoop"].(bool),
-				params["bExit"].(bool),
-			)
+		if job == nil {
+			resp.UseError("TASK.10002")
+			return
 		}
+		job.AddProcessor(
+			params["code"].(string),
+			int64(params["trigger"].(float64)),
+			params["bReset"].(bool),
+			params["bLoop"].(bool),
+			params["bExit"].(bool),
+		)
 	},
 	restful.HandlerOpts{
+		MakeErrorFunc: func(err *restful.Errors) {
+			err.NewError("TASK.10002", "job not exist")
+		},
 		ParseFunc: parser.JsonParser,
 		Filters: []restful.Filter{
 			&filter.CheckAdmin{},
@@ -161,11 +166,11 @@ var GetJobHandler = restful.NewHandler(
 			resp.Success(map[string]interface{}{"processorsCount": job.GetProcessorCount(), "state": job.GetState()})
 			return
 		}
-		resp.UseError("TASK.10006")
+		resp.UseError("TASK.10010")
 	},
 	restful.HandlerOpts{
 		MakeErrorFunc: func(err *restful.Errors) {
-			err.NewError("TASK.10006", "get job error")
+			err.NewError("TASK.10010", "get job error")
 		},
 		ParseFunc: parser.JsonParser,
 		Filters: []restful.Filter{

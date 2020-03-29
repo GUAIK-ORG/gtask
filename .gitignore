@@ -6,4 +6,5 @@
 .idea/watcherTasks.xml
 
 log/*
+db/*
 release/*

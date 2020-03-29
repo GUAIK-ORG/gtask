@@ -20,6 +20,7 @@ type Params struct {
 type Config struct {
 	Port      uint32 `json:"listen_port"`
 	SecretKey string `json:"secret_key"`
+	DbPath    string `json:"db_path"`
 }
 
 func readFiles(path string) ([]byte, error) {
@@ -56,7 +57,7 @@ func main() {
 	session.Ins().Init(cfg.SecretKey)
 	// 随机生成一个token
 	session.Ins().GetToken(cfg.SecretKey)
-	task.Ins().Init()
+	task.Ins().Init(cfg.DbPath)
 
 	restfulServer := restful.NewRestful()
 	restfulServer.SetDefOpt(&restful.SchedulerOpt{UseCORS: true})
@@ -74,8 +75,8 @@ func main() {
 	restfulServer.Get("/session/token", http.GetToken)
 
 	glog.Infof("gtask running %d", cfg.Port)
-	task.Ins().Start()
 	restfulServer.Start(cfg.Port)
 	task.Ins().Stop()
 	task.Ins().Wait()
+	task.Ins().Release()
 }

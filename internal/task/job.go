@@ -12,6 +12,8 @@ type Job struct {
 	ProcessorList  []*Processor
 	processorCount int64
 	state          int64
+	saveDelay      int64
+	lastSaveTime   int64
 }
 
 func NewJob(task *Task, Key string) *Job {
@@ -23,6 +25,8 @@ func NewJob(task *Task, Key string) *Job {
 		ProcessorList:  make([]*Processor, 0),
 		processorCount: 0,
 		state:          0,
+		saveDelay:      5, // (秒)
+		lastSaveTime:   time.Now().Unix(),
 	}
 }
 
@@ -82,13 +86,16 @@ func (job *Job) worker() {
 			for index, proc := range job.ProcessorList {
 				proc.count++
 				if proc.count >= proc.trigger {
+					// 执行任务
 					if !proc.Run(job.Key, proc.count) {
 						job.Release()
+						job.task.DeleteJob(job.Key)
 						return
 					}
 					if proc.bExit {
 						// 超时退出Page
 						job.Release()
+						job.task.DeleteJob(job.Key)
 						return
 					}
 					if proc.bLoop {
@@ -99,6 +106,11 @@ func (job *Job) worker() {
 						job.ProcessorList = append(job.ProcessorList[:index], job.ProcessorList[index+1:]...)
 					}
 				}
+			}
+			// 更新数据
+			if time.Now().Unix()-job.lastSaveTime > job.saveDelay {
+				job.task.Save(job.Key, job.ProcessorList)
+				job.lastSaveTime = time.Now().Unix()
 			}
 		}
 	}

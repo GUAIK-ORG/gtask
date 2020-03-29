@@ -38,7 +38,9 @@ GTask支持远程管理任务，执行任务脚本（目前仅支持lua），开
 
 这时会要求输入密钥，该密钥是初始化服务器时候的密钥。
 
-## 服务端接口
+## 服务端接口文档
+
+[查看接口文档](https://github.com/GUAIK-ORG/gtask/blob/master/docs/interface.md)
 
 ## 客户端指令说明介绍
 
